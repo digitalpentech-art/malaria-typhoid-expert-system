@@ -1,5 +1,7 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, abort
 from flask_login import login_required, current_user
+from functools import wraps
+
 from app import db
 from app.admin import bp
 from app.models import Symptom, Rule, User, Diagnosis, Recommendation
@@ -7,7 +9,17 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SelectMultipleField, SubmitField
 from wtforms.validators import DataRequired, Length
 
+def admin_required(f):
+    @wraps(f)
+    @login_required
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.role != 'admin':
+            abort(403)
+        return f(*args, **kwargs)
+    return decorated_function
+
 class RuleForm(FlaskForm):
+
     rule_name = StringField('Rule Name', validators=[DataRequired(), Length(max=100)])
     conclusion = StringField('Conclusion', validators=[DataRequired(), Length(max=100)])
     min_count = IntegerField('Minimum Matching Symptoms', default=1, validators=[DataRequired()])
