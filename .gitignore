@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment/Secrets
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Database
+app.db
+*.sqlite3
+
+# Flask/Other
+.pytest_cache/
+.DS_Store
+*.log

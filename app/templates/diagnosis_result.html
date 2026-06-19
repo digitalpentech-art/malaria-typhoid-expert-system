@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto text-center">
+    <div class="card diagnosis-card">
+        <div class="mb-6">
+            {% if result == 'Unknown' %}
+            <div class="icon-circle icon-yellow">
+                <i class="fas fa-exclamation-triangle text-3xl"></i>
+            </div>
+            {% else %}
+            <div class="icon-circle icon-green">
+                <i class="fas fa-check-circle text-3xl"></i>
+            </div>
+            {% endif %}
+        </div>
+        
+        <h2 class="text-4xl font-bold mb-4">{{ result }}</h2>
+        <p class="text-lg mb-8">{{ explanation }}</p>
+        
+        <div class="advice-box">
+            <h3><i class="fas fa-info-circle mr-2"></i>Medical Advice</h3>
+            <p>{{ advice }}</p>
+        </div>
+        
+        <div class="flex flex-col gap-4">
+            <a href="{{ url_for('main.symptom_checker') }}" class="btn btn-primary w-full">
+                Check Again
+            </a>
+            <a href="{{ url_for('main.history') }}" class="btn btn-secondary w-full">
+                View History
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

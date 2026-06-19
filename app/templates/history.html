@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <h2 class="mb-6">{{ title }}</h2>
+    
+    <div class="card table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Result</th>
+                    <th>Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for diagnosis in diagnoses %}
+                <tr>
+                    <td class="whitespace-nowrap">
+                        {{ diagnosis.timestamp.strftime('%Y-%m-%d %H:%M') }}
+                    </td>
+                    <td>
+                        <span class="font-semibold 
+                            {% if diagnosis.result == 'Malaria' %} text-green-600
+                            {% elif diagnosis.result == 'Typhoid' %} text-blue-600
+                            {% elif diagnosis.result == 'Co-infection' %} text-purple-600
+                            {% else %} text-yellow-600
+                            {% endif %}">
+                            {{ diagnosis.result }}
+                        </span>
+                    </td>
+                    <td>
+                        {{ diagnosis.explanation[:100] }}{% if diagnosis.explanation|length > 100 %}...{% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if not diagnoses %}
+                <tr>
+                    <td colspan="3" class="text-center text-gray-500">No diagnosis history found.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

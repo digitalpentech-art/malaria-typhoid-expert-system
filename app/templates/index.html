@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center py-12">
+    <h1 class="text-4xl font-extrabold text-gray-900 sm:text-6xl">
+        Early Diagnosis of Malaria & Typhoid
+    </h1>
+    <p class="mt-4 text-xl text-gray-600">
+        An intelligent expert system powered by rule-based reasoning.
+    </p>
+    <div class="mt-10 flex justify-center gap-4">
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary">
+            Get Started
+        </a>
+        {% else %}
+        <a href="{{ url_for('main.symptom_checker') }}" class="btn btn-primary">
+            Check Symptoms
+        </a>
+        <a href="{{ url_for('main.history') }}" class="btn btn-secondary">
+            View History
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
