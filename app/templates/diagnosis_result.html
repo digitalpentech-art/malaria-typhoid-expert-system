@@ -1,35 +1,37 @@
-<!DOCTYPE html>
 {% extends "base.html" %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto text-center">
+<div class="max-w-3xl mx-auto text-center">
     <div class="card diagnosis-card">
-        <div class="mb-6">
+        <div class="mb-8">
             {% if result == 'Unknown' %}
             <div class="icon-circle icon-yellow">
-                <i class="fas fa-exclamation-triangle text-3xl"></i>
+                <i class="fas fa-circle-question text-4xl"></i>
             </div>
             {% else %}
             <div class="icon-circle icon-green">
-                <i class="fas fa-check-circle text-3xl"></i>
+                <i class="fas fa-stethoscope text-4xl"></i>
             </div>
             {% endif %}
         </div>
         
-        <h2 class="text-4xl font-bold mb-4">{{ result }}</h2>
-        <p class="text-lg mb-8">{{ explanation }}</p>
-        
-        <div class="advice-box">
-            <h3><i class="fas fa-info-circle mr-2"></i>Medical Advice</h3>
-            <p>{{ advice }}</p>
+        <div class="mb-10">
+            <span class="text-sm font-bold uppercase tracking-widest text-muted mb-2 block">Analysis Result</span>
+            <h2 class="text-5xl font-extrabold mb-4">{{ result }}</h2>
+            <p class="text-xl text-gray-600 leading-relaxed max-w-lg mx-auto">{{ explanation }}</p>
         </div>
         
-        <div class="flex flex-col gap-4">
-            <a href="{{ url_for('main.symptom_checker') }}" class="btn btn-primary w-full">
-                Check Again
+        <div class="advice-box">
+            <h3><i class="fas fa-clipboard-list mr-2"></i> Clinical Recommendations</h3>
+            <p class="text-lg leading-relaxed text-gray-700">{{ advice }}</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
+            <a href="{{ url_for('main.symptom_checker') }}" class="btn btn-primary py-4 text-lg">
+                <i class="fas fa-rotate-left mr-2"></i> Re-analyze
             </a>
-            <a href="{{ url_for('main.history') }}" class="btn btn-secondary w-full">
-                View History
+            <a href="{{ url_for('main.history') }}" class="btn btn-secondary py-4 text-lg">
+                <i class="fas fa-folder-open mr-2"></i> My Reports
             </a>
         </div>
     </div>

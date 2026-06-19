@@ -1,45 +1,92 @@
-<!DOCTYPE html>
 {% extends "base.html" %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto">
-    <h2 class="mb-6">{{ title }}</h2>
+<div class="max-w-5xl mx-auto">
+    <div class="flex justify-between items-center mb-10">
+        <div>
+            <h2 class="mb-2">{{ title }}</h2>
+            <p class="text-gray-500">System overview and administrative control center.</p>
+        </div>
+        <div class="text-right">
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                <i class="fas fa-circle text-[8px] mr-1"></i> System Online
+            </span>
+        </div>
+    </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="card border-t-4 border-blue-500">
-            <div class="text-gray-500 text-sm font-semibold uppercase">Total Symptoms</div>
-            <div class="text-3xl font-bold">{{ symptoms_count }}</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="card border-l-4 border-teal-500">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-teal-50 text-teal-600 rounded-lg">
+                    <i class="fas fa-stethoscope text-xl"></i>
+                </div>
+                <div>
+                    <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Symptoms</div>
+                    <div class="text-3xl font-extrabold">{{ symptoms_count }}</div>
+                </div>
+            </div>
         </div>
-        <div class="card border-t-4 border-green-500">
-            <div class="text-gray-500 text-sm font-semibold uppercase">Total Rules</div>
-            <div class="text-3xl font-bold">{{ rules_count }}</div>
+        <div class="card border-l-4 border-indigo-500">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg">
+                    <i class="fas fa-brain text-xl"></i>
+                </div>
+                <div>
+                    <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Rules</div>
+                    <div class="text-3xl font-extrabold">{{ rules_count }}</div>
+                </div>
+            </div>
         </div>
-        <div class="card border-t-4 border-purple-500">
-            <div class="text-gray-500 text-sm font-semibold uppercase">Diagnoses</div>
-            <div class="text-3xl font-bold">{{ diagnoses_count }}</div>
+        <div class="card border-l-4 border-purple-500">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-purple-50 text-purple-600 rounded-lg">
+                    <i class="fas fa-file-medical text-xl"></i>
+                </div>
+                <div>
+                    <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Diagnoses</div>
+                    <div class="text-3xl font-extrabold">{{ diagnoses_count }}</div>
+                </div>
+            </div>
         </div>
-        <div class="card border-t-4 border-yellow-500">
-            <div class="text-gray-500 text-sm font-semibold uppercase">Users</div>
-            <div class="text-3xl font-bold">{{ users_count }}</div>
+        <div class="card border-l-4 border-amber-500">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-amber-50 text-amber-600 rounded-lg">
+                    <i class="fas fa-users text-xl"></i>
+                </div>
+                <div>
+                    <div class="text-gray-500 text-xs font-bold uppercase tracking-wider">Users</div>
+                    <div class="text-3xl font-extrabold">{{ users_count }}</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="space-y-6">
-        <div class="flex justify-between items-center">
-            <h3 class="text-xl font-bold">Quick Actions</h3>
+    <div class="space-y-8">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-bolt text-teal-600"></i>
+            <h3 class="text-xl font-bold m-0">Quick Management</h3>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <a href="{{ url_for('admin.manage_symptoms') }}" class="card text-center p-4">
-                <i class="fas fa-stethoscope text-blue-500 text-2xl mb-2"></i>
-                <span class="text-sm font-medium">Manage Symptoms</span>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <a href="{{ url_for('admin.manage_symptoms') }}" class="card flex flex-col items-center text-center p-6 group">
+                <div class="mb-4 p-4 bg-teal-50 text-teal-600 rounded-full group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-stethoscope text-2xl"></i>
+                </div>
+                <span class="font-bold text-dark">Manage Symptoms</span>
+                <span class="text-xs text-gray-500 mt-1">Define clinical markers</span>
             </a>
-            <a href="{{ url_for('admin.manage_rules') }}" class="card text-center p-4">
-                <i class="fas fa-brain text-green-500 text-2xl mb-2"></i>
-                <span class="text-sm font-medium">Manage Rules</span>
+            <a href="{{ url_for('admin.manage_rules') }}" class="card flex flex-col items-center text-center p-6 group">
+                <div class="mb-4 p-4 bg-indigo-50 text-indigo-600 rounded-full group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-brain text-2xl"></i>
+                </div>
+                <span class="font-bold text-dark">Manage Rules</span>
+                <span class="text-xs text-gray-500 mt-1">Refine reasoning logic</span>
             </a>
-            <a href="{{ url_for('admin.manage_recommendations') }}" class="card text-center p-4">
-                <i class="fas fa-file-medical text-purple-500 text-2xl mb-2"></i>
-                <span class="text-sm font-medium">Recommendations</span>
+            <a href="{{ url_for('admin.manage_recommendations') }}" class="card flex flex-col items-center text-center p-6 group">
+                <div class="mb-4 p-4 bg-purple-50 text-purple-600 rounded-full group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                    <i class="fas fa-file-medical text-2xl"></i>
+                </div>
+                <span class="font-bold text-dark">Recommendations</span>
+                <span class="text-xs text-gray-500 mt-1">Update clinical advice</span>
             </a>
         </div>
     </div>

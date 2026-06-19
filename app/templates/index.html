@@ -1,27 +1,60 @@
-<!DOCTYPE html>
 {% extends "base.html" %}
 
 {% block content %}
-<div class="text-center py-12">
-    <h1 class="text-4xl font-extrabold text-gray-900 sm:text-6xl">
-        Early Diagnosis of Malaria & Typhoid
+<div class="hero-section">
+    <h1 class="hero-title">
+        Intelligent Early Diagnosis <br>
+        <span style="color: var(--primary-color);">of Malaria & Typhoid</span>
     </h1>
-    <p class="mt-4 text-xl text-gray-600">
-        An intelligent expert system powered by rule-based reasoning.
+    <p class="hero-subtitle">
+        A professional expert system leveraging rule-based reasoning to help identify potential infections based on symptom analysis.
     </p>
-    <div class="mt-10 flex justify-center gap-4">
+    <div class="flex justify-center gap-4">
         {% if current_user.is_anonymous %}
-        <a href="{{ url_for('auth.login') }}" class="btn btn-primary">
-            Get Started
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary px-8 py-4 text-lg">
+            Get Started Now <i class="fas fa-arrow-right ml-2"></i>
         </a>
         {% else %}
-        <a href="{{ url_for('main.symptom_checker') }}" class="btn btn-primary">
-            Check Symptoms
+        <a href="{{ url_for('main.symptom_checker') }}" class="btn btn-primary px-8 py-4 text-lg">
+            Start Symptom Check <i class="fas fa-stethoscope ml-2"></i>
         </a>
-        <a href="{{ url_for('main.history') }}" class="btn btn-secondary">
-            View History
+        <a href="{{ url_for('main.history') }}" class="btn btn-secondary px-8 py-4 text-lg">
+            View My History <i class="fas fa-history ml-2"></i>
         </a>
         {% endif %}
+    </div>
+</div>
+
+<div class="how-it-works">
+    <div class="step-card">
+        <div class="step-icon">
+            <i class="fas fa-list-check"></i>
+        </div>
+        <h3>1. Select Symptoms</h3>
+        <p>Choose from a comprehensive list of symptoms you are currently experiencing.</p>
+    </div>
+    <div class="step-card">
+        <div class="step-icon">
+            <i class="fas fa-microchip"></i>
+        </div>
+        <h3>2. AI Analysis</h3>
+        <p>Our rule-based inference engine analyzes the symptom pattern against medical guidelines.</p>
+    </div>
+    <div class="step-card">
+        <div class="step-icon">
+            <i class="fas fa-file-medical"></i>
+        </div>
+        <h3>3. Get Advice</h3>
+        <p>Receive a potential diagnosis and immediate medical guidance for the next steps.</p>
+    </div>
+</div>
+
+<div class="mt-20 text-center">
+    <div class="card bg-white py-12 max-w-4xl mx-auto">
+        <h3 class="text-2xl font-bold mb-4">Medical Disclaimer</h3>
+        <p class="text-sm text-muted italic">
+            This system is an academic prototype designed for clinical support and research. It does not replace professional medical diagnosis. Always consult a qualified healthcare provider for medical concerns.
+        </p>
     </div>
 </div>
 {% endblock %}

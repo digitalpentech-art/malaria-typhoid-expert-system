@@ -1,30 +1,47 @@
-<!DOCTYPE html>
 {% extends "base.html" %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto">
-    <h2 class="mb-6">{{ title }}</h2>
+<div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-end mb-8">
+        <div>
+            <h2 class="mb-2">{{ title }}</h2>
+            <p class="text-gray-500">Select all symptoms that apply to your current condition.</p>
+        </div>
+        <button type="button" id="clear-all" class="btn btn-ghost text-sm font-semibold">
+            <i class="fas fa-eraser mr-1"></i> Clear All
+        </button>
+    </div>
+
     <form method="POST" class="card">
         {{ form.hidden_tag() }}
-        <p class="mb-6">Please select all the symptoms you are currently experiencing:</p>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             {% for symptom in symptoms %}
             <label class="symptom-label">
-                <input type="checkbox" name="symptoms" value="{{ symptom.id }}" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                <input type="checkbox" name="symptoms" value="{{ symptom.id }}">
                 <div class="ml-3">
-                    <span class="block font-semibold">{{ symptom.name }}</span>
+                    <span class="block font-bold text-dark">{{ symptom.name }}</span>
                     <span class="block text-sm text-gray-500">{{ symptom.description }}</span>
                 </div>
             </label>
             {% endfor %}
         </div>
 
-        <div class="flex justify-end">
-            <button type="submit" class="btn btn-primary px-8 py-3">
-                Analyze Symptoms
+        <div class="flex justify-center border-t pt-8">
+            <button type="submit" class="btn btn-primary px-12 py-4 text-lg shadow-lg">
+                Analyze My Symptoms <i class="fas fa-magnifying-glass ml-2"></i>
             </button>
         </div>
     </form>
 </div>
+
+<script>
+    document.getElementById('clear-all').addEventListener('click', function() {
+        const checkboxes = document.querySelectorAll('input[name="symptoms"]');
+        checkboxes.forEach(cb => {
+            cb.checked = false;
+            cb.closest('.symptom-label').classList.remove('active');
+        });
+    });
+</script>
 {% endblock %}
