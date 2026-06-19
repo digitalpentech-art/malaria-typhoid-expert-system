@@ -13,7 +13,10 @@
             <a href="{{ url_for('main.index') }}" class="navbar-brand">
                 <i class="fas fa-heartbeat"></i> HealthExpert AI
             </a>
-            <div class="nav-links">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
                 <a href="{{ url_for('main.index') }}" class="nav-link">Home</a>
                 {% if current_user.is_anonymous %}
                 <a href="{{ url_for('auth.login') }}" class="nav-link">Login</a>
@@ -57,21 +60,45 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navLinks = document.getElementById('nav-links');
+            
+            if (navToggle) {
+                navToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('open');
+                    const icon = navToggle.querySelector('i');
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                });
+            }
+
+            // Close menu when clicking a link (mobile)
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    const icon = navToggle ? navToggle.querySelector('i') : null;
+                    if (icon) {
+                        icon.classList.add('fa-bars');
+                        icon.classList.remove('fa-times');
+                    }
+                });
+            });
+
             // Handle symptom label active state
             const labels = document.querySelectorAll('.symptom-label');
             labels.forEach(label => {
                 const checkbox = label.querySelector('input[type="checkbox"]');
                 
                 // Initialize state
-                if (checkbox.checked) {
+                if (checkbox && checkbox.checked) {
                     label.classList.add('active');
                 }
 
                 label.addEventListener('click', function(e) {
-                    // Prevent double-triggering when clicking the checkbox itself
-                    if (e.target.type === 'checkbox') {
-                        // Let the checkbox handle its state
-                    } else {
+                    if (!checkbox) return;
+                    if (e.target.type !== 'checkbox') {
                         checkbox.checked = !checkbox.checked;
                     }
                     
