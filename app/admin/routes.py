@@ -172,6 +172,13 @@ def edit_rule(rule_id):
 
     return render_template('admin/edit_rule.html', form=form, rule=rule, title='Edit Rule')
 
+@bp.route('/force-reset')
+@admin_required
+def force_reset():
+    db.drop_all()
+    db.create_all()
+    return "Database has been reset! Please redeploy without this route, or trigger the auto-seed."
+
 @bp.route('/symptoms/edit/<int:symptom_id>', methods=['GET', 'POST'])
 @admin_required
 def edit_symptom(symptom_id):
