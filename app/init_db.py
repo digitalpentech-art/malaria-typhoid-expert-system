@@ -1,7 +1,9 @@
 from app import db
-from app.models import User, Symptom, Rule, Recommendation
+from .models import User, Symptom, Rule, Recommendation
 
 def initialize_data():
+    # ... rest of the function remains the same ...
+    # (Need to make sure this works with relative imports)
     """Seeds the database with initial data if empty."""
     
     # 1. Seed Users

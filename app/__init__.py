@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from config import Config
-from app.init_db import initialize_data
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -12,6 +11,7 @@ login.login_view = 'auth.login'
 login.login_message_category = 'info'
 
 def create_app(config_class=Config):
+    from app.init_db import initialize_data
     app = Flask(__name__)
     app.config.from_object(config_class)
 
