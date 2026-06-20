@@ -29,9 +29,9 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 2rem;
     box-sizing: border-box;
 }
 
@@ -46,7 +46,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1.25rem 0;
 }
 
 .navbar-brand {
@@ -58,7 +58,8 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
+    align-items: center;
 }
 
 .nav-link {
@@ -69,6 +70,52 @@ body {
 .nav-link:hover {
     color: #bfdbfe; /* blue-200 */
 }
+
+.btn-nav-primary {
+    background-color: var(--white);
+    color: var(--primary-color) !important;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.btn-nav-primary:hover {
+    background-color: #f3f4f6;
+}
+
+.admin-link {
+    color: #fde047 !important; /* yellow-300 */
+}
+
+.nav-divider {
+    width: 1px;
+    height: 20px;
+    background-color: rgba(255,255,255,0.3);
+    margin: 0 0.75rem;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-name {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+}
+
+.logout-link {
+    font-size: 0.8rem;
+    color: #fca5a5 !important; /* red-300 */
+}
+
+.logout-link:hover {
+    color: #f87171 !important; /* red-400 */
+}
+
 
 /* Main Content */
 main {
@@ -249,15 +296,69 @@ tr:hover {
     background-color: #f9fafb;
 }
 
-/* Grid */
-.grid {
-    display: grid;
-    gap: 1rem;
+/* ... (existing styles above) ... */
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        background-color: var(--nav-bg);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        box-shadow: -10px 0 15px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+    }
+
+    .nav-links.open {
+        right: 0;
+    }
+
+    .hero-title {
+        font-size: 2.25rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .diagnosis-card {
+        padding: 2rem 1rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
 }
 
-.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-@media (min-width: 768px) {
-    .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Add missing nav-toggle style */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1100;
+    padding: 0.5rem;
 }
 
 /* Utilities */
