@@ -20,7 +20,10 @@ def create_app(config_class=Config):
     login.init_app(app)
     
     with app.app_context():
-        initialize_data()
+        try:
+            initialize_data()
+        except Exception as e:
+            print(f"Skipping auto-seed (database might not be initialized yet): {e}")
 
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
