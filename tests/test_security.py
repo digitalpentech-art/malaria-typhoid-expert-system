@@ -39,9 +39,7 @@ def test_admin_required_decorator(app, client):
 
     # Try to access admin dashboard
     response = client.get('/admin/dashboard')
-    assert response.status_code == 302
-    # Should redirect to index or login depending on configuration
-    assert '/auth/login' in response.location or '/index' in response.location
+    assert response.status_code == 403
 
     # Create an admin user
     admin = User(username='admin', email='admin@example.com', role='admin')

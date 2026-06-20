@@ -1,46 +1,64 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto">
-    <div class="flex justify-between items-end mb-8">
-        <div>
-            <h2 class="mb-2">{{ title }}</h2>
-            <p class="text-gray-500">Select all symptoms that apply to your current condition.</p>
-        </div>
-        <button type="button" id="clear-all" class="btn btn-ghost text-sm font-semibold">
-            <i class="fas fa-eraser mr-1"></i> Clear All
-        </button>
-    </div>
-
-    <form method="POST" class="card">
-        {{ form.hidden_tag() }}
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            {% for symptom in symptoms %}
-            <label class="symptom-label">
-                <input type="checkbox" name="symptoms" value="{{ symptom.id }}">
-                <div class="ml-3">
-                    <span class="block font-bold text-dark">{{ symptom.name }}</span>
-                    <span class="block text-sm text-gray-500">{{ symptom.description }}</span>
-                </div>
-            </label>
-            {% endfor %}
-        </div>
-
-        <div class="flex justify-center border-t pt-8">
-            <button type="submit" class="btn btn-primary px-12 py-4 text-lg shadow-lg">
-                Analyze My Symptoms <i class="fas fa-magnifying-glass ml-2"></i>
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">{{ title }}</h2>
+                <p class="text-muted mb-0">Select all symptoms that apply to your current condition.</p>
+            </div>
+            <button type="button" id="clear-all" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-eraser me-1"></i> Clear All
             </button>
         </div>
-    </form>
+
+        <form method="POST" class="card shadow-sm border-0 p-4 p-md-5">
+            {{ form.hidden_tag() }}
+            
+            <div class="row g-4 mb-5">
+                {% for symptom in symptoms %}
+                <div class="col-12 col-md-6">
+                    <div class="form-check p-3 border rounded-3 h-100 transition-all">
+                        <input class="form-check-input ms-0 me-3 mt-1" type="checkbox" name="symptoms" value="{{ symptom.id }}" id="symptom_{{ symptom.id }}">
+                        <label class="form-check-label d-block cursor-pointer" for="symptom_{{ symptom.id }}">
+                            <span class="d-block fw-bold text-dark">{{ symptom.name }}</span>
+                            <span class="d-block small text-muted">{{ symptom.description }}</span>
+                        </label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center border-top pt-4">
+                <button type="submit" class="btn btn-primary btn-lg px-5 py-3 shadow">
+                    Analyze My Symptoms <i class="fas fa-magnifying-glass ms-2"></i>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
+
+<style>
+    .transition-all {
+        transition: all 0.2s ease-in-out;
+    }
+    .form-check:hover {
+        background-color: #f8f9fa;
+    }
+    .form-check-input:checked + .form-check-label {
+        color: var(--brand-blue);
+    }
+    .cursor-pointer {
+        cursor: pointer;
+    }
+</style>
 
 <script>
     document.getElementById('clear-all').addEventListener('click', function() {
         const checkboxes = document.querySelectorAll('input[name="symptoms"]');
         checkboxes.forEach(cb => {
             cb.checked = false;
-            cb.closest('.symptom-label').classList.remove('active');
         });
     });
 </script>

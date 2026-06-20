@@ -97,3 +97,109 @@ def manage_recommendations():
         return redirect(url_for('admin.manage_recommendations'))
     recs = Recommendation.query.all()
     return render_template('admin/recommendations.html', recs=recs, title='Manage Recommendations')
+
+@bp.route('/symptoms/delete/<int:symptom_id>', methods=['POST'])
+@admin_required
+def delete_symptom(symptom_id):
+    symptom = db.session.get(Symptom, symptom_id)
+    if not symptom:
+        abort(404)
+    
+    # Check if symptom is used in any rule conditions
+    rules = Rule.query.all()
+    is_used = False
+    using_rules = []
+    for rule in rules:
+        try:
+            conds = rule.get_conditions()
+            if symptom_id in conds.get('symptom_ids', []):
+                is_used = True
+                using_rules.append(rule.rule_name)
+        except Exception:
+            pass
+            
+    if is_used:
+        flash(f'Cannot delete symptom "{symptom.name}" because it is currently used in the following rules: {", ".join(using_rules)}. Please modify or delete those rules first.', 'danger')
+    else:
+        db.session.delete(symptom)
+        db.session.commit()
+        flash(f'Symptom "{symptom.name}" has been deleted successfully.', 'success')
+        
+    return redirect(url_for('admin.manage_symptoms'))
+
+@bp.route('/rules/delete/<int:rule_id>', methods=['POST'])
+@admin_required
+def delete_rule(rule_id):
+    rule = db.session.get(Rule, rule_id)
+    if not rule:
+        abort(404)
+    
+    rule_name = rule.rule_name
+    db.session.delete(rule)
+    db.session.commit()
+    flash(f'Rule "{rule_name}" has been deleted successfully.', 'success')
+    return redirect(url_for('admin.manage_rules'))
+
+@bp.route('/rules/edit/<int:rule_id>', methods=['GET', 'POST'])
+@admin_required
+def edit_rule(rule_id):
+    rule = db.session.get(Rule, rule_id)
+    if not rule:
+        abort(404)
+    
+    form = RuleForm()
+    symptoms = Symptom.query.all()
+    form.symptom_ids.choices = [(s.id, s.name) for s in symptoms]
+
+    if form.validate_on_submit():
+        conditions = {
+            "symptom_ids": form.symptom_ids.data,
+            "min_count": form.min_count.data
+        }
+        rule.rule_name = form.rule_name.data
+        rule.conclusion = form.conclusion.data
+        rule.priority = form.priority.data
+        rule.set_conditions(conditions)
+        db.session.commit()
+        flash('Rule updated successfully.', 'success')
+        return redirect(url_for('admin.manage_rules'))
+
+    # Pre-populate form
+    form.rule_name.data = rule.rule_name
+    form.conclusion.data = rule.conclusion
+    form.priority.data = rule.priority
+    form.symptom_ids.data = rule.get_conditions().get('symptom_ids', [])
+
+    return render_template('admin/edit_rule.html', form=form, rule=rule, title='Edit Rule')
+
+@bp.route('/symptoms/edit/<int:symptom_id>', methods=['GET', 'POST'])
+@admin_required
+def edit_symptom(symptom_id):
+    symptom = db.session.get(Symptom, symptom_id)
+    if not symptom:
+        abort(404)
+
+    if request.method == 'POST':
+        symptom.name = request.form.get('name')
+        symptom.description = request.form.get('description')
+        symptom.category = request.form.get('category')
+        db.session.commit()
+        flash('Symptom updated successfully.', 'success')
+        return redirect(url_for('admin.manage_symptoms'))
+
+    return render_template('admin/edit_symptom.html', symptom=symptom, title='Edit Symptom')
+
+@bp.route('/recommendations/edit/<int:rec_id>', methods=['GET', 'POST'])
+@admin_required
+def edit_recommendation(rec_id):
+    rec = db.session.get(Recommendation, rec_id)
+    if not rec:
+        abort(404)
+
+    if request.method == 'POST':
+        rec.advice_text = request.form.get('advice_text')
+        db.session.commit()
+        flash('Recommendation updated successfully.', 'success')
+        return redirect(url_for('admin.manage_recommendations'))
+
+    return render_template('admin/edit_recommendation.html', rec=rec, title='Edit Recommendation')
