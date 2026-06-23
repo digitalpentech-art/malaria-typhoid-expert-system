@@ -3,7 +3,7 @@
 {% block content %}
 <!-- Hero Section -->
 <div class="row justify-content-center">
-    <div class="col-lg-10 text-center py-5 px-4 rounded-5 shadow-sm mb-5" style="background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);">
+    <div class="col-lg-10 text-center py-5 px-4 rounded-5 shadow-sm mb-5 hero-gradient">
         <h1 class="display-3 fw-bold text-dark mb-3">
             Intelligent Early Diagnosis <br>
             <span class="text-primary">of Malaria & Typhoid</span>
@@ -13,11 +13,11 @@
         </p>
         <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg px-5 py-3 shadow">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg px-5 py-3 shadow btn-brand">
                 Get Started Now <i class="fas fa-arrow-right ms-2"></i>
             </a>
             {% else %}
-            <a href="{{ url_for('main.symptom_checker') }}" class="btn btn-primary btn-lg px-5 py-3 shadow">
+            <a href="{{ url_for('main.symptom_checker') }}" class="btn btn-primary btn-lg px-5 py-3 shadow btn-brand">
                 Start Symptom Check <i class="fas fa-stethoscope ms-2"></i>
             </a>
             <a href="{{ url_for('main.history') }}" class="btn btn-outline-primary btn-lg px-5 py-3">
@@ -36,7 +36,7 @@
     </div>
     <div class="col-md-4">
         <div class="card h-100 border-0 shadow-sm text-center p-4">
-            <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary" style="width: 80px; height: 80px; font-size: 2rem;">
+            <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary icon-circle" style="width: 80px; height: 80px; font-size: 2rem;">
                 <i class="fas fa-list-check"></i>
             </div>
             <h3 class="h5 fw-bold">1. Select Symptoms</h3>
@@ -45,7 +45,7 @@
     </div>
     <div class="col-md-4">
         <div class="card h-100 border-0 shadow-sm text-center p-4">
-            <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary" style="width: 80px; height: 80px; font-size: 2rem;">
+            <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary icon-circle" style="width: 80px; height: 80px; font-size: 2rem;">
                 <i class="fas fa-microchip"></i>
             </div>
             <h3 class="h5 fw-bold">2. AI Analysis</h3>
@@ -54,7 +54,7 @@
     </div>
     <div class="col-md-4">
         <div class="card h-100 border-0 shadow-sm text-center p-4">
-            <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary" style="width: 80px; height: 80px; font-size: 2rem;">
+            <div class="mb-4 mx-auto d-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary icon-circle" style="width: 80px; height: 80px; font-size: 2rem;">
                 <i class="fas fa-file-medical"></i>
             </div>
             <h3 class="h5 fw-bold">3. Get Advice</h3>

@@ -1,21 +1,89 @@
+/* Google Fonts - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 :root {
     --brand-blue: #2563eb;
+    --brand-blue-hover: #1d4ed8;
+    --brand-light: #eff6ff;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --bg-light: #f8fafc;
 }
 
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-light);
+}
+
+/* Typography refinements */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: #111827;
+}
+
+/* Navbar styling */
 .navbar {
     background-color: var(--brand-blue) !important;
 }
 
+.navbar-brand {
+    letter-spacing: -0.025em;
+}
+
+/* Custom Buttons */
 .btn-brand {
     background-color: var(--brand-blue);
     color: white;
+    border: none;
+    transition: all 0.2s ease;
 }
 
 .btn-brand:hover {
-    background-color: #1d4ed8;
+    background-color: var(--brand-blue-hover);
     color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.text-brand {
-    color: var(--brand-blue);
+.btn-brand:active {
+    transform: translateY(0);
+}
+
+/* Card refinements */
+.card {
+    border-radius: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Section spacing and utility */
+.hero-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+}
+
+.icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.icon-circle:hover {
+    transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+    font-size: 0.875rem;
+}
+
+/* Utility classes for smooth transitions */
+.transition-all {
+    transition: all 0.3s ease;
 }
