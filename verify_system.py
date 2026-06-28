@@ -2,7 +2,7 @@ import sys
 import os
 
 # Add the project directory to sys.path so imports work correctly
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from app import create_app, db
 from app.models import Symptom, Rule, Diagnosis
@@ -31,8 +31,7 @@ def test_inference():
         chills = Symptom.query.filter_by(name='Chills').first()
         sweating = Symptom.query.filter_by(name='Sweating').first()
         
-        print("
-Testing Malaria Case (Fever, Chills, Sweating)...")
+        print("\nTesting Malaria Case (Fever, Chills, Sweating)...")
         engine = InferenceEngine([fever.id, chills.id, sweating.id])
         result, explanation, matches = engine.evaluate()
         print(f"Result: {result}")
@@ -49,8 +48,7 @@ Testing Malaria Case (Fever, Chills, Sweating)...")
         abdominal_pain = Symptom.query.filter_by(name='Abdominal Pain').first()
         loss_appetite = Symptom.query.filter_by(name='Loss of Appetite').first()
         
-        print("
-Testing Typhoid Case (Fever, Abdominal Pain, Loss of Appetite)...")
+        print("\nTesting Typhoid Case (Fever, Abdominal Pain, Loss of Appetite)...")
         engine = InferenceEngine([fever.id, abdominal_pain.id, loss_appetite.id])
         result, explanation, matches = engine.evaluate()
         print(f"Result: {result}")
@@ -71,8 +69,7 @@ Testing Typhoid Case (Fever, Abdominal Pain, Loss of Appetite)...")
         all_typhoid = [fever.id, abdominal_pain.id, loss_appetite.id, Symptom.query.filter_by(name='Weakness').first().id, Symptom.query.filter_by(name='Diarrhea').first().id]
         combined_ids = list(set(all_malaria + all_typhoid))
 
-        print("
-Testing Co-infection Case (Combined symptoms)...")
+        print("\nTesting Co-infection Case (Combined symptoms)...")
         engine = InferenceEngine(combined_ids)
         result, explanation, matches = engine.evaluate()
         print(f"Result: {result}")
@@ -83,8 +80,7 @@ Testing Co-infection Case (Combined symptoms)...")
         else:
             print(f"FAILED: Expected Co-infection, got {result}")
 
-        print("
---- Verification Finished ---")
+        print("\n--- Verification Finished ---")
 
 if __name__ == '__main__':
     test_inference()

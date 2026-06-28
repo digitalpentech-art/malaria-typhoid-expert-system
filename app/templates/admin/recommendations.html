@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {% extends "base.html" %}
 
 {% block content %}
@@ -22,7 +21,9 @@
                             <td class="ps-4 fw-medium">{{ rec.diagnosis_result }}</td>
                             <td class="text-muted small">{{ rec.advice_text[:100] }}{% if rec.advice_text|length > 100 %}...{% endif %}</td>
                             <td class="text-center">
-                                <a href="{{ url_for('admin.edit_recommendation', rec_id=rec.id) }}" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></a>
+                                <a href="{{ url_for('admin.edit_recommendation', rec_id=rec.id) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -53,7 +54,7 @@
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-success btn-lg">
-                            Save Recommendation
+                            <i class="fa-solid fa-save me-2"></i>Save Recommendation
                         </button>
                     </div>
                 </form>
